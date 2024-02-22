@@ -1,0 +1,39 @@
+# Compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Conda environment directories
+.env/
+.venv/
+env/
+venv/
+.conda/
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# R-specific files
+.Rhistory
+.RData
+.Rproj.user/
+.Rproj
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# R Markdown output files
+# *.md
+*.html
+
+# R package build artifacts
+*.tar.gz
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
