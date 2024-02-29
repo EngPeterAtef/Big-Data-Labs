@@ -37,3 +37,10 @@ pip-delete-this-directory.txt
 # Miscellaneous
 .DS_Store
 Thumbs.db
+
+# documents
+*.pdf
+*.docx
+*.doc
+*.pptx
+*.ppt
