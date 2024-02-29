@@ -44,3 +44,10 @@ Thumbs.db
 *.doc
 *.pptx
 *.ppt
+*.csv
+
+# compressed files
+*.zip
+*.tar
+*.gz
+*.bz2
