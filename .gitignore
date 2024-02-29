@@ -39,11 +39,11 @@ pip-delete-this-directory.txt
 Thumbs.db
 
 # documents
-*.pdf
-*.docx
-*.doc
-*.pptx
-*.ppt
+# *.pdf
+# *.docx
+# *.doc
+# *.pptx
+# *.ppt
 *.csv
 
 # compressed files
