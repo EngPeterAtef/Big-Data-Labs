@@ -41,6 +41,7 @@ Thumbs.db
 # documents
 # *.pdf
 # *.docx
+*.docx#
 # *.doc
 # *.pptx
 # *.ppt
@@ -51,3 +52,6 @@ Thumbs.db
 *.tar
 *.gz
 *.bz2
+
+#java files
+*.jar
