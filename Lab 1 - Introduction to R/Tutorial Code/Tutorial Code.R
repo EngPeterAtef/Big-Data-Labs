@@ -206,7 +206,7 @@ In matrix(cells, nrow = 3, ncol = 3, byrow = TRUE, dimnames = list(rnames,  :
   subdfm
   #Can we write it in another way?
   mydata[mydata$ID <= 3, c('ID', 'Color')]
-  #with(mydata, mydata[ID<=3, c('ID','Color')])
+  with(mydata, mydata[ID<=3, c('ID','Color')])
   
   #(9) IMPORTANT: Tables = frequency array/co-occurence matrix
   #=======================
