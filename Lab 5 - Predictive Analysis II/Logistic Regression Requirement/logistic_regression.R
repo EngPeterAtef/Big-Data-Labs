@@ -44,8 +44,20 @@ cor.mat # Note: The general rule is not to include variables in your model that 
 # corr 0: independent, corr 1: highly correlated, corr -1: highly correlated in inverse direction
 
 # (Q1) Write the variable pairs that are not correlated at all to each other.
+if (FALSE) {
+  "
+          Price     Income        Age
+  Price      1 0.00000000 0.00000000
+  Income     0 1.00000000 0.09612083
+  Age        0 0.09612083 1.00000000
+  "
+  # Variables that are not correlated at all to each other are:
+  # Price and Income
+  # Price and Age
+}
 
 # (Q2) Are there any highly correlated variables in this dataset?
+# There are no highly correlated variables in this dataset because the correlation values are not close to 1 or -1.
 
 # [2] Test a model with 3 variables Price, Income and Age
 mylogit <- glm(MYDEPV ~ Income + Age + as.factor(Price),
@@ -71,9 +83,24 @@ summary(mylogit)
 
 # Notice how the price in coefficient section is divided into 2 entries:
 # as.factor(Price)20, as.factor(Price)30
-
+if (FALSE) {
+  "
+   Coefficients:
+                   Estimate Std. Error z value Pr(>|z|)
+(Intercept)        -6.02116    0.53244 -11.309  < 2e-16 ***
+Income              0.12876    0.00923  13.950  < 2e-16 ***
+Age                 0.03506    0.01179   2.974  0.00294 **
+as.factor(Price)20 -0.74418    0.26439  -2.815  0.00488 **
+as.factor(Price)30 -2.21028    0.31108  -7.105  1.2e-12 ***
+---
+   "
+}
 # (Q3): How many categories are there for the Price variable?
+# There are 3 categories for the Price variable: 10, 20, and 30.
 # (Q4): Why is it divided into two entries only in the model?
+# The Price variable is divided into two entries because it is a categorical variable.
+# for n = 3 categories, you need n-1 dummy variables to represent the categories.
+# so we have 2 dummy variables for the Price variable.
 
 # Review the "Estimate" column. For every one unit change in Income (while other variables are constants),
 # the log odd ratio of Purchase (not the probability) increases by 0.12876 (the coefficients)
@@ -93,15 +120,19 @@ aucObj <- performance(predObj, measure = "auc") # auc object
 auc <- aucObj@y.values[[1]]
 auc # the auc score: tells you how well the model predicts.
 # (Q5.1) Write the value of this expression (just the number)
-
+# 0.915272
 # (Q5.2) What is the maximum value of AUC (ideal case)?
-
+# one
 # plot the roc curve
 plot(rocObj, main = paste("Area under the curve:", auc))
 
 # (Q6) What does each point in the ROC graph represent?
 # In other words, what is the value that changes and drives TPR and FPR to change too
 # from one point to another in the graph?
+# The value that affects the TPR and FPR is the threshold value.
+# The threshold value is the value that the model uses to classify the data into classes.
+# We draw the ROC curve by changing the threshold value and calculating the TPR and FPR for each threshold value.
+# Then we choose the best threshold value that gives the largest AUC value.
 
 # [4] Predictions
 # Prediction - 1
@@ -113,6 +144,16 @@ newdata1
 newdata1$PurchaseP <- predict(mylogit, newdata = newdata1, type = "response")
 newdata1
 # (Q7) How is the predicted probability affected by changing only price holding all other variables constant?
+if (FALSE) {
+  "
+   Income    Age Price PurchaseP
+1 42.492 35.976    10 0.6707408
+2 42.492 35.976    20 0.4918407
+3 42.492 35.976    30 0.1826131
+   "
+  #  As the price increases, the predicted probability of purchase decreases.
+  # Holding income and age constant, a higher price leads to a lower likelihood of purchase.
+}
 
 # Prediction - 2
 newdata2 <- data.frame(
@@ -125,13 +166,61 @@ newdata2
 cbind(newdata2$Age, newdata2$PurchaseP)
 plot(newdata2$Age, newdata2$PurchaseP)
 # (Q8) How is the predicted probability affected by changing only age holding all other variables constant?
+if (FALSE) {
+  "
+   Age Income Price PurchaseP
+1   18 42.492    30 0.1063052
+2   20 42.492    30 0.1131540
+3   22 42.492    30 0.1203845
+4   24 42.492    30 0.1280103
+5   26 42.492    30 0.1360445
+6   28 42.492    30 0.1444993
+7   30 42.492    30 0.1533864
+8   32 42.492    30 0.1627160
+9   34 42.492    30 0.1724975
+10  36 42.492    30 0.1827387
+11  38 42.492    30 0.1934457
+12  40 42.492    30 0.2046231
+13  42 42.492    30 0.2162731
+14  44 42.492    30 0.2283958
+15  46 42.492    30 0.2409892
+16  48 42.492    30 0.2540483
+17  50 42.492    30 0.2675657
+18  52 42.492    30 0.2815308
+19  54 42.492    30 0.2959303
+20  56 42.492    30 0.3107477
+21  58 42.492    30 0.3259636
+22  60 42.492    30 0.3415553
+23  62 42.492    30 0.3574973
+24  64 42.492    30 0.3737609
+25  66 42.492    30 0.3903150
+   "
+}
+# As the age increases, the predicted probability of purchase increases.
+# Holding income and price constant, a higher age leads to a higher likelihood of purchase.
 
 # Prediction - 3
 newdata3 <- data.frame(Income = seq(20, 90, 10), Age = mean(Mydata$Age), Price = 30)
 newdata3$PurchaseP <- predict(mylogit, newdata = newdata3, type = "response")
+newdata3
 cbind(newdata3$Income, newdata3$PurchaseP)
 plot(newdata3$Income, newdata3$PurchaseP)
 # (Q9) How is the predicted probability affected by changing only income holding all other variables constant?
+if (FALSE) {
+  "
+     Income    Age Price  PurchaseP
+1     20 35.976    30 0.01219091
+2     30 35.976    30 0.04281102
+3     40 35.976    30 0.13948050
+4     50 35.976    30 0.37004640
+5     60 35.976    30 0.68039246
+6     70 35.976    30 0.88525564
+7     80 35.976    30 0.96546923
+8     90 35.976    30 0.99022745
+   "
+}
+# As the income increases, the predicted probability of purchase increases.
+# Holding age and price constant, a higher income leads to a higher likelihood of purchase.
 
 # Prediction 4
 newdata4 <- data.frame(
@@ -141,3 +230,18 @@ newdata4 <- data.frame(
 )
 newdata4$Prob <- predict(mylogit, newdata = newdata4, type = "response")
 newdata4
+if (FALSE) {
+  "
+      Age Income Price      Prob
+1   62     59    30 0.8233653
+2   64     58    10 0.9756593
+3   19     84    20 0.9911343
+4   46     65    20 0.9614674
+5   30     63    10 0.9586159
+6   64     92    20 0.9993413
+7   50     54    30 0.6165084
+8   53     45    20 0.7083149
+9   55     47    30 0.4375177
+10  48     75    30 0.9572450
+   "
+}
