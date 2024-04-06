@@ -105,10 +105,12 @@ pairs(LungCapData[, c("LungCap", "Age", "Height")])
 # (Q10) Calculate correlation between Age and LungCap, and between Height and LungCap.
 # Hint: You can use the function cor
 age_lung <- cor(LungCapData$Age, LungCapData$LungCap)
-
+age_lung
+# 0.8196749
 # (Q11) Which of the two input variables (Age, Height) are more correlated to the
 # dependent variable (LungCap)?
 height_lung <- cor(LungCapData$Height, LungCapData$LungCap)
+height_lung
 # compare the two values of correlation
 if (age_lung > height_lung) {
     print("Age is more correlated to LungCap")
