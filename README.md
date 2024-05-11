@@ -10,3 +10,5 @@ Inside this repo you can find labs regarding the following topics using python, 
 6. Desriptive Analysis
 7. Microsoft Azure
 8. AWS
+
+Please check the reports and the code of each lab for more information.
